@@ -43,19 +43,19 @@ async function main() {
 	
 	console.log('-----');
 	console.log('Checking if sauna is warm.');
-	console.log('Sauna''s temperature is ' + (sauna_temperature) + ' °C.');
+	console.log('Sauna\'s temperature is ' + (sauna_temperature) + ' °C.');
 	
 	if (!sauna_warm && sauna_temperature >= SAUNA_WARM_TEMPERATURE) {
 		sauna_warm = true;
-		await sendMessage('🔥 Hirvihuhdan sauna on lämmin, saunassa on ' + (sauna_temperature) + '°C');
+		await sendMessage('🔥 Hirvihuhdan sauna on lämmin, saunassa on ehkä ' + (sauna_temperature) + '°C');
 		console.log('Sauna is now warm.');
 	}
 	else if (sauna_warm && sauna_temperature <= SAUNA_WARM_TEMPERATURE_RESET) {
 		sauna_warm = false;
-		console.log('Sauna isn''t warm ' + sauna_temperature + '°C.');
+		console.log('Sauna isn\'t warm ' + sauna_temperature + '°C.');
 	}
 	
-	console.log('Sauna ' + (sauna_warm ? 'is warm' : 'isn''t warm'));
+	console.log('Sauna ' + (sauna_warm ? 'is warm' : 'isn\'t warm'));
 }
 
 async function getSaunaTemperature() {
@@ -75,6 +75,9 @@ async function sendMessage(message) {
 		await telegram.sendMessage(CHAT_ID, message);
 	}
 }
+
+// Initial run on start-up. Unnecessary but good for testing.
+await main();
 
 // Start the interval loop.
 setInterval(async () => {
