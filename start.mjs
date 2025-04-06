@@ -43,16 +43,16 @@ async function main() {
 	
 	console.log('-----');
 	console.log('Checking if sauna is warm.');
-	console.log('Sauna\'s temperature is ' + (sauna_temperature) + ' °C.');
+	console.log('Sauna\'s temperature is ' + (sauna_temperature) + '°C.');
 	
 	if (!sauna_warm && sauna_temperature >= SAUNA_WARM_TEMPERATURE) {
 		sauna_warm = true;
-		await sendMessage('🔥 Hirvihuhdan sauna on lämmin, saunassa on ehkä ' + (sauna_temperature) + '°C');
+		await sendMessage('🔥 Hirvihuhdan sauna on lämmin, saunassa on ehkä ' + (sauna_temperature + Number(SAUNA_TEMPERATURE_OFFSET)) + '°C');
 		console.log('Sauna is now warm.');
 	}
 	else if (sauna_warm && sauna_temperature <= SAUNA_WARM_TEMPERATURE_RESET) {
 		sauna_warm = false;
-		console.log('Sauna isn\'t warm ' + sauna_temperature + '°C.');
+		console.log('Sauna isn\'t warm, sensor ' + sauna_temperature + '°C.');
 	}
 	
 	console.log('Sauna ' + (sauna_warm ? 'is warm' : 'isn\'t warm'));
@@ -62,7 +62,8 @@ async function getSaunaTemperature() {
 	const response = await fetch('https://api.tulikukka.com/ruuvi/current');
 	const response_json = await response.json();
 	const sauna = response_json.find(entry => entry.tag_name === 'Sauna');
-	const temperature = sauna.temperature + SAUNA_TEMPERATURE_OFFSET;
+	//const temperature = sauna.temperature + SAUNA_TEMPERATURE_OFFSET;
+	const temperature = sauna.temperature;
 
 	return temperature;
 }
@@ -71,7 +72,7 @@ async function getSaunaTemperature() {
 async function sendMessage(message) {
 	console.log('Message to Telegram: ' + message);
 	
-	if (TESTING) {
+	if (!TESTING) {
 		await telegram.sendMessage(CHAT_ID, message);
 	}
 }
