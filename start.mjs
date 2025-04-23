@@ -60,7 +60,7 @@ async function main() {
 }
 
 async function getSaunaTemperature() {
-	const response = await fetch(URL);
+	const response = await fetch(API_URL);
 	const response_json = await response.json();
 	const sauna = response_json.find(entry => entry.tag_name === 'Sauna');
 	//const temperature = sauna.temperature + SAUNA_TEMPERATURE_OFFSET;
