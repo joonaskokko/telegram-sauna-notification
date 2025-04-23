@@ -66,7 +66,7 @@ async function getSaunaTemperature() {
 	//const temperature = sauna.temperature + SAUNA_TEMPERATURE_OFFSET;
 	const temperature = sauna.temperature.current;
 	
-	if (isNanN(temperature)) {
+	if (isNaN(temperature)) {
 		throw new Exception("Invalid data from API.");
 	}
 
