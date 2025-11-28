@@ -1,5 +1,5 @@
 import TelegramBot from 'node-telegram-bot-api';
-import { config as loadEnv } from 'dotenv';
+import { config as loadEnv } from 'dotenv-flow';
 
 loadEnv();
 
@@ -90,13 +90,6 @@ async function sendMessage(message) {
 	}
 }
 
-// Fetch interval.
-let fetch_interval = FETCH_INTERVAL;
-
-if (TESTING) {
-	fetch_interval = 500;
-}
-
 // Initial run on start-up. Unnecessary but good for testing.
 await main();
 
@@ -110,4 +103,4 @@ setInterval(async () => {
 		// Log the possible error.
 		console.log(error);
 	}
-}, fetch_interval);
+}, FETCH_INTERVAL);
