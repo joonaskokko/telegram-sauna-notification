@@ -21,6 +21,7 @@ const telegram = new TelegramBot(TOKEN, { polling: false });
 
 let sauna_warm = false;
 let sauna_temperature = 0;
+let sauna_temperature_max = 0;
 let sauna_pain = false;
 
 // NODE_ENV="test" stuff.
@@ -44,6 +45,11 @@ async function main() {
 		sauna_temperature = test_temperature;
 	}
 
+	// Save max temperature.
+	if (sauna_temperature > sauna_temperature_max) {
+		sauna_temperature_max = sauna_temperature;
+	}
+
 	console.log('-----');
 	console.log('Checking if sauna is warm.');
 	console.log('Sauna\'s temperature is ' + (sauna_temperature) + '°C.');
@@ -59,8 +65,10 @@ async function main() {
 		console.log('Pain limit reached.');
 	}
 	else if (sauna_warm && sauna_temperature <= SAUNA_WARM_TEMPERATURE_RESET) {
+		await sendMessage('🫡 Hirvihuhdan sauna on viilentynyt, maksimilämpötila ' + sauna_temperature_max + '°C');
 		sauna_warm = false;
 		sauna_pain = false;
+		sauna_temperature_max = sauna_temperature;
 		console.log('Sauna isn\'t warm, sensor ' + sauna_temperature + '°C.');
 	}
 
