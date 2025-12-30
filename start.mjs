@@ -66,7 +66,7 @@ async function main() {
 		console.log('Pain limit reached.');
 	}
 	else if (sauna_warm && sauna_temperature <= SAUNA_WARM_TEMPERATURE_RESET) {
-		await sendMessage('🫡 Hirvihuhdan sauna on viilentynyt, maksimilämpötila ' + sauna_temperature_max + '°C');
+		await sendMessage('🫡 Hirvihuhdan sauna on viilentynyt, maksimilämpötila oli ' + sauna_temperature_max + '°C');
 		sauna_warm = false;
 		sauna_pain = false;
 		sauna_temperature_max = sauna_temperature;
