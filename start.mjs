@@ -53,6 +53,7 @@ async function main() {
 	console.log('-----');
 	console.log('Checking if sauna is warm.');
 	console.log('Sauna\'s temperature is ' + (sauna_temperature) + '°C.');
+	console.log('Max temperature is ' + (sauna_temperature_max) + '°C.');
 
 	if (!sauna_warm && sauna_temperature >= SAUNA_WARM_TEMPERATURE) {
 		sauna_warm = true;
